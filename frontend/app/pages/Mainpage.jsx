@@ -6,8 +6,12 @@ import ScrapeForm from "~/components/ScrapeBox/ScrapeForm";
 import ScrapedContents from "~/components/ScrapedContents/ScrapedContents";
 import FilterBox from "~/components/FilterBox/FilterBox";
 import SummaryBox from "~/components/AI_SummaryBox/SummaryBox";
+import SaveButton from "~/components/SaveButton/SaveButton";
+import { motion } from "framer-motion";
+import { AnimatePresence } from "motion/react";
 
 const INITIAL_SCRAPED_CONTENTS = {
+  loading: true,
   query: "",
   success: false,
   message: "",
@@ -119,19 +123,28 @@ export default function Mainpage() {
   return (
     <>
       <ScrapeForm onSubmit={handleScrape} />
-      {scrapedContents.data.length > 0 && (
-        <>
-          <SummaryBox
-            summarizeFunc={handleSummarizeContents}
-            summary={scrapedContents.summary}
-          />
-          <FilterBox
-            contents={scrapedContents}
-            setContents={setScrapedContents}
-          />
-        </>
-      )}
-      <ScrapedContents contents={scrapedContents} />
+      <AnimatePresence mode="wait">
+        {scrapedContents.data.length > 0 && (
+          <motion.div
+            key={scrapedContents.data}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5 }}
+          >
+            <SummaryBox
+              summarizeFunc={handleSummarizeContents}
+              summary={scrapedContents.summary}
+            />
+            {/* <SaveButton /> */}
+            <FilterBox
+              contents={scrapedContents}
+              setContents={setScrapedContents}
+            />
+            <ScrapedContents contents={scrapedContents} />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import scrapeRoutes from "./routes.js";
 import cors from "cors";
+import connectDB from "./database.js";
 
 dotenv.config();
 const app = express();
@@ -21,12 +22,13 @@ app.use(
 
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
+app.get("/api", (req, res) => {
+  res.send("WikiScraper Ready!");
 });
 
 app.use(API_PREFIX, scrapeRoutes);
 
 app.listen(PORT, () => {
   console.log("Listening to port", PORT);
+  connectDB().catch(console.dir);
 });

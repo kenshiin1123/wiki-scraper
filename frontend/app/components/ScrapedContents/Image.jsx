@@ -1,11 +1,12 @@
 export default function Image({ image }) {
-  const handleClick = () => {
-    window.open(image.src, "_blank");
-  };
+  // const handleClick = () => {
+  //   window.open(image.src, "_blank");
+  // };
 
   return (
     <img
-      onClick={handleClick}
+      draggable={false}
+      // onClick={handleClick}
       src={image.src}
       alt={image.alt}
       className={`rounded h-60 object-contain mx-auto shadow shadow-gray-400 
