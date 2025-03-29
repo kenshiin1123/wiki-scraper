@@ -1,3 +1,4 @@
+import Session from "./session.model.js";
 import { getWikiPageContents, getContentsSummaryWithAI } from "./utils.js";
 
 const extractPageContents = async (req, res) => {
@@ -45,4 +46,12 @@ const getSummary = async (req, res) => {
   }
 };
 
-export { extractPageContents, getSummary };
+const saveArticle = async (req, res) => {
+  const { summary, article, session } = req.body;
+  const newSessionArticle = new Session({ summary, article });
+  console.log(newSessionArticle);
+  res.json({ message: "Article Saving Test", data: newSessionArticle });
+  w;
+};
+
+export { extractPageContents, getSummary, saveArticle };

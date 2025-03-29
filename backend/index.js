@@ -22,7 +22,7 @@ app.use(
 
 app.use(express.json());
 
-app.get("/api", (req, res) => {
+app.get(API_PREFIX, (req, res) => {
   res.send("WikiScraper Ready!");
 });
 

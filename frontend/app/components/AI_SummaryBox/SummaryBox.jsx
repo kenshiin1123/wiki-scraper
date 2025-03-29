@@ -5,12 +5,12 @@ import { AnimatePresence, motion } from "motion/react";
 export default function SummaryBox({ summarizeFunc, summary }) {
   return (
     <Container>
-      {!summary && (
-        <Button onClick={summarizeFunc} type="button">
-          Summarize
-        </Button>
-      )}
       <AnimatePresence mode="wait">
+        {!summary && (
+          <Button onClick={summarizeFunc} type="button">
+            Summarize
+          </Button>
+        )}
         {summary && (
           <motion.div
             initial={{ opacity: 0, y: -10 }}

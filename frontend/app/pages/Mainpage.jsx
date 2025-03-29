@@ -9,9 +9,9 @@ import SummaryBox from "~/components/AI_SummaryBox/SummaryBox";
 import SaveButton from "~/components/SaveButton/SaveButton";
 import { motion } from "framer-motion";
 import { AnimatePresence } from "motion/react";
+import SavedArticles from "~/components/SavedArticles/SavedArticles";
 
 const INITIAL_SCRAPED_CONTENTS = {
-  loading: true,
   query: "",
   success: false,
   message: "",
@@ -136,7 +136,7 @@ export default function Mainpage() {
               summarizeFunc={handleSummarizeContents}
               summary={scrapedContents.summary}
             />
-            {/* <SaveButton /> */}
+            {/* <SaveButton contents={scrapedContents} /> */}
             <FilterBox
               contents={scrapedContents}
               setContents={setScrapedContents}
@@ -145,6 +145,7 @@ export default function Mainpage() {
           </motion.div>
         )}
       </AnimatePresence>
+      {/* {scrapedContents.data < 1 && <SavedArticles />} */}
     </>
   );
 }

@@ -1,22 +1,11 @@
 import mongoose from "mongoose";
 
 const sessionSchema = new mongoose.Schema({
-  article: {
-    summary: String,
-    type: [
-      {
-        contents: {
-          type: String,
-          required: true,
-        },
-        tag: {
-          type: String,
-          required: true,
-        },
-      },
-    ],
-    default: [],
+  summary: {
+    type: String,
+    required: true,
   },
+  article: Array,
 });
 
 export default mongoose.model("Session", sessionSchema);

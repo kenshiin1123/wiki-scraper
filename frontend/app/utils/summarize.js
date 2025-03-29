@@ -1,12 +1,9 @@
 const { VITE_ROOT_API, VITE_SUMMARIZE_API, VITE_ORIGIN } =
   import.meta.env || {};
-
-const MAX_PAYLOAD_SIZE = 1000; // Adjust this value based on your payload limit
+import contentsLimiter from "./contentsLimiter";
 
 export default async (content) => {
-  if (content.length > MAX_PAYLOAD_SIZE) {
-    content = content.substring(0, MAX_PAYLOAD_SIZE);
-  }
+  content = contentsLimiter(content);
 
   const res = await fetch(
     `${VITE_ORIGIN}${VITE_ROOT_API}${VITE_SUMMARIZE_API}`,

@@ -1,5 +1,6 @@
 import { MongoClient, ServerApiVersion } from "mongodb";
 import dotenv from "dotenv";
+import mongoose from "mongoose";
 dotenv.config();
 
 const uri = process.env.MONGODB_URI;
@@ -27,3 +28,15 @@ async function run() {
 }
 
 export default run;
+// const MONGOSH_URI = process.env.MONGOSH_URI;
+
+// async function runDev() {
+//   const db = mongoose.connection;
+//   mongoose.connect(MONGOSH_URI);
+//   db.on("error", console.error.bind((console, "Connection Error:")));
+//   db.once("open", function () {
+//     console.log("You successfully connected to MongoDB!");
+//   });
+// }
+
+// export default runDev;

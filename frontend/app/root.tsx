@@ -1,4 +1,5 @@
-import React from "react";
+import { v4 as uuid } from "uuid";
+import React, { useEffect } from "react";
 import {
   isRouteErrorResponse,
   Links,
@@ -44,6 +45,15 @@ export function Layout({ children }: { readonly children: React.ReactNode }) {
 }
 
 export default function App() {
+  // Look for available session in localstorage
+  useEffect(() => {
+    const session = localStorage.getItem("session_id");
+    if (!session) {
+      //Creates session in localstorage if there are none available
+      localStorage.setItem("session_id", uuid());
+    }
+  });
+
   return <Outlet />;
 }
 
