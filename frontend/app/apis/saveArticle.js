@@ -1,16 +1,19 @@
-import contentsLimiter from "./contentsLimiter.js";
+import contentsLimiter from "../utils/contentsLimiter.js";
 
-const saveArticle = async (summary, articles) => {
+const { VITE_ROOT_API, VITE_SESSION_API, VITE_ORIGIN } = import.meta.env || {};
+const saveArticle = async (summary, articles, name) => {
+  if (!summary) {
+    summary = "none";
+  }
   const session = localStorage.getItem("session_id");
   try {
     if (session) {
       const payload = {
+        name: name,
         article: contentsLimiter(articles),
         summary: summary,
         session: session,
       };
-
-      console.log(payload);
 
       const res = await fetch(
         `${VITE_ORIGIN}${VITE_ROOT_API}${VITE_SESSION_API}`,
@@ -24,7 +27,12 @@ const saveArticle = async (summary, articles) => {
       );
 
       const data = await res.json();
-      console.log(data);
+      if (!res.ok) {
+        throw new Error(data.message || "Failed to save article");
+      }
+      if (data.error) {
+        throw new Error(data.error);
+      }
     } else {
       console.log("Missing Articles or Session");
     }

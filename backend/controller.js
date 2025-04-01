@@ -1,6 +1,8 @@
 import Session from "./session.model.js";
 import { getWikiPageContents, getContentsSummaryWithAI } from "./utils.js";
 
+let numberOfSavedArticles = 0;
+
 const extractPageContents = async (req, res) => {
   const { s } = req.body;
   try {
@@ -47,11 +49,67 @@ const getSummary = async (req, res) => {
 };
 
 const saveArticle = async (req, res) => {
-  const { summary, article, session } = req.body;
-  const newSessionArticle = new Session({ summary, article });
-  console.log(newSessionArticle);
-  res.json({ message: "Article Saving Test", data: newSessionArticle });
-  w;
+  const { summary, article, session, name } = req.body;
+  try {
+    const newSessionArticle = new Session({
+      name,
+      summary,
+      article,
+      sessionId: session,
+    });
+    await newSessionArticle.save();
+    numberOfSavedArticles++;
+    console.log("Article saved successfully", numberOfSavedArticles);
+    res.json({ message: "Successfully Saved The Article" });
+  } catch (error) {
+    console.dir(error);
+    res.json({ message: "Saving Failed!" });
+  }
 };
 
-export { extractPageContents, getSummary, saveArticle };
+const getSavedArticles = async (req, res) => {
+  const { session } = req.body;
+  const savedArticles = await Session.find({ sessionId: session });
+  if (savedArticles.length === 0) {
+    return res.json({
+      success: false,
+      message: `No saved articles found for session "${session}"!`,
+      data: savedArticles,
+    });
+  } else {
+    return res.json({
+      success: true,
+      message: `Saved articles found for session "${session}"!`,
+      data: savedArticles,
+    });
+  }
+};
+
+const deleteSavedArticle = async (req, res) => {
+  const { articleId } = req.body;
+  console.log(req.body);
+
+  if (articleId === undefined) {
+    return res.status(400).json({ message: "Session ID is required" });
+  }
+
+  try {
+    const deletedArticle = await Session.findByIdAndDelete(articleId);
+    if (!deletedArticle) {
+      return res.status(404).json({ message: "Article not found" });
+    }
+    console.log("Article deleted successfully", numberOfSavedArticles);
+    return res.json({ message: "Article deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting article:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export {
+  extractPageContents,
+  getSummary,
+  saveArticle,
+  getSavedArticles,
+  deleteSavedArticle,
+};

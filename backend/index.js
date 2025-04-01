@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-import scrapeRoutes from "./routes.js";
+import routes from "./routes.js";
 import cors from "cors";
 import connectDB from "./database.js";
 
@@ -15,7 +15,7 @@ const API_PREFIX = process.env.API_PREFIX;
 app.use(
   cors({
     origin: FRONTEND_ORIGIN,
-    methods: ["POST", "GET"],
+    methods: ["POST", "GET", "DELETE"],
     credentials: true, // Allows cookies/auth headers
   })
 );
@@ -26,7 +26,7 @@ app.get(API_PREFIX, (req, res) => {
   res.send("WikiScraper Ready!");
 });
 
-app.use(API_PREFIX, scrapeRoutes);
+app.use(API_PREFIX, routes);
 
 app.listen(PORT, () => {
   console.log("Listening to port", PORT);

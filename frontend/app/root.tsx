@@ -10,7 +10,7 @@ import {
 } from "react-router";
 
 import type { Route } from "./+types/root";
-import NavBar from "./components/Navbar.jsx";
+import NavBar from "./components/LayoutComponents/Navbar.jsx";
 import "./app.css";
 
 export const links: Route.LinksFunction = () => [

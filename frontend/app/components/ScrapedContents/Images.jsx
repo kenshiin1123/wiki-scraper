@@ -35,7 +35,7 @@ export default function Images({ images }) {
   return (
     <div
       ref={scrollRef}
-      className="flex-nowrap gap-5 mx-auto overflow-x-scroll px-10 relative flex cursor-grab active:cursor-grabbing"
+      className="flex-nowrap gap-5 mx-auto overflow-x-scroll  px-10 relative flex cursor-grab active:cursor-grabbing"
       onMouseDown={handleMouseDown}
       onMouseLeave={handleMouseLeave}
       onMouseUp={handleMouseUp}

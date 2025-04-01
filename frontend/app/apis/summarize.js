@@ -1,6 +1,6 @@
 const { VITE_ROOT_API, VITE_SUMMARIZE_API, VITE_ORIGIN } =
   import.meta.env || {};
-import contentsLimiter from "./contentsLimiter";
+import contentsLimiter from "../utils/contentsLimiter";
 
 export default async (content) => {
   content = contentsLimiter(content);

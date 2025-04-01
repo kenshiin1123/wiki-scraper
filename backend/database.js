@@ -28,6 +28,7 @@ async function run() {
 }
 
 export default run;
+
 // const MONGOSH_URI = process.env.MONGOSH_URI;
 
 // async function runDev() {

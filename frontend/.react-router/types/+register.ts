@@ -8,4 +8,5 @@ declare module "react-router" {
 
 type Params = {
   "/": {};
+  "/saved_articles": {};
 };
