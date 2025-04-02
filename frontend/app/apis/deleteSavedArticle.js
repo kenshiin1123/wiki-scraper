@@ -2,7 +2,6 @@ const { VITE_ROOT_API, VITE_ORIGIN, VITE_SAVED_ARTICLES_API } =
   import.meta.env || {};
 
 const deleteSavedArticle = async (articleId) => {
-  console.log(VITE_ROOT_API, VITE_ORIGIN, VITE_SAVED_ARTICLES_API);
   try {
     if (!VITE_ROOT_API || !VITE_ORIGIN || !VITE_SAVED_ARTICLES_API) {
       throw new Error("Missing required environment variables.");

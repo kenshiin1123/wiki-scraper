@@ -30,5 +30,5 @@ app.use(API_PREFIX, routes);
 
 app.listen(PORT, () => {
   console.log("Listening to port", PORT);
-  connectDB().catch(console.dir);
+  connectDB();
 });
