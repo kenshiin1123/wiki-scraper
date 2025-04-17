@@ -3,6 +3,14 @@ import { getWikiPageContents, getContentsSummaryWithAI } from "./utils.js";
 
 let numberOfSavedArticles = 0;
 
+const healthCheck = (req, res) => {
+  return res.status(200).json({
+    status: "success",
+    message: "Server is up and running.",
+    timestamp: new Date().toISOString()
+  });
+}
+
 const extractPageContents = async (req, res) => {
   const { s } = req.body;
   try {
@@ -112,4 +120,5 @@ export {
   saveArticle,
   getSavedArticles,
   deleteSavedArticle,
+  healthCheck
 };
