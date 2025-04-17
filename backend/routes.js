@@ -9,7 +9,10 @@ import {
   saveArticle,
   getSavedArticles,
   deleteSavedArticle,
+  healthCheck
 } from "./controller.js";
+
+router.get("/", healthCheck );
 
 // Scraping
 router.post(process.env.SCRAPE_ENDPOINT, extractPageContents);
